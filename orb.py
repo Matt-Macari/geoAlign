@@ -84,6 +84,6 @@ for each in matches:
 
 #uncomment to show dimensions
 # Get image dimensions
-#height, width, channels = train_img.shape  # Channels will be 3 for a color image (BGR)
-#print(f'Image Dimensions: {width}x{height}')
+height, width, channels = train_img.shape  # Channels will be 3 for a color image (BGR)
+print(f'Image Dimensions: {width}x{height}')
 
