@@ -1,6 +1,7 @@
 import numpy as np
 import cv2  
 
+#load the images here to test, make sure the images are in the same directory. 
 curr_train_img = 'airportCrop.png'
 curr_query_img = 'airPort.jpg'
 
@@ -39,11 +40,11 @@ M, mask = cv2.estimateAffine2D(query_pts, train_pts)
 # M, mask = cv2.findHomography(query_pts, train_pts, cv2.RANSAC)
 
 #warp the image to fit 
-#aligned_img = cv2.warpAffine(query_img, M, (train_img.shape[1], train_img.shape[0]))
+aligned_img = cv2.warpAffine(query_img, M, (train_img.shape[1], train_img.shape[0]))
 
 #draw matches to the final image conatining both images 
 #drawMatches() function does this
-final_img = cv2.drawMatches(query_img, queryKeypoints, train_img, trainKeypoints, matches[:30], None)
+final_img = cv2.drawMatches(query_img, queryKeypoints, train_img, trainKeypoints, matches[:50], None)
 
 final_img = cv2.resize(final_img,(1000,650))
 
@@ -63,23 +64,30 @@ cv2.imshow("matches:", final_img)
 
 cv2.waitKey(5000) #set to 0 if you want to exit the picture manually. 
 cv2.destroyAllWindows()  # This will close the window after the key press.
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
 
 
-""" print("coordinates of query img points: ")
-for i, pt in enumerate(query_pts):
-    print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}") 
+#uncommment to print coordinates
+# print("coordinates of query img points: ")
+# for i, pt in enumerate(query_pts):
+#     print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}") 
 
-print('\n \n \n')
+# print('\n \n \n')
 
-print("coordinates of train img points: ")
-for i, pt in enumerate(train_pts):
-    print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}")  """
+# print("coordinates of train img points: ")
+# for i, pt in enumerate(train_pts):
+#     print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}")  
+
 """ 
 print("working?")
 for each in matches: 
     print(each.distance) """
 
+#uncomment to show dimensions
 # Get image dimensions
-height, width, channels = train_img.shape  # Channels will be 3 for a color image (BGR)
-print(f'Image Dimensions: {width}x{height}')
+#height, width, channels = train_img.shape  # Channels will be 3 for a color image (BGR)
+#print(f'Image Dimensions: {width}x{height}')
 
