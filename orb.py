@@ -54,9 +54,15 @@ final_img = cv2.resize(final_img,(1000,650))
 
 
 
+
 #show the final image
-#cv2.imshow("matches:", final_img) #show matches
+#show matches
+cv2.imshow("matches:", final_img) 
+#show the aligned image, this does not work as expected right now. 
 #cv2.imshow("aligned image", aligned_img) # show aligned img
+
+cv2.waitKey(5000) #set to 0 if you want to exit the picture manually. 
+cv2.destroyAllWindows()  # This will close the window after the key press.
 
 
 """ print("coordinates of query img points: ")
