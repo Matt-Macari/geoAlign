@@ -64,10 +64,6 @@ cv2.imshow("matches:", final_img)
 
 cv2.waitKey(5000) #set to 0 if you want to exit the picture manually. 
 cv2.destroyAllWindows()  # This will close the window after the key press.
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 
 
 #uncommment to print coordinates
