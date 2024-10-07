@@ -2,8 +2,8 @@ import numpy as np
 import cv2  
 
 #load the images here to test, make sure the images are in the same directory. 
-curr_train_img = 'airportCrop.png'
-curr_query_img = 'airPort.jpg'
+curr_train_img = 'data/airportCrop.png'
+curr_query_img = 'data/airPort.jpg'
 
 query_img = cv2.imread(curr_query_img)
 train_img = cv2.imread(curr_train_img)
