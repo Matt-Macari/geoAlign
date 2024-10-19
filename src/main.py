@@ -1,8 +1,11 @@
-# for later use with CLI: 
-import argparse
+import orb as orb
 
 def main():
-    pass
+    base = 'data/airPort.jpg'
+    query = 'data/airportCrop.png'
+
+    orb.orb_detect(base, query)
+
 
 if __name__ == "__main__":
     main()
