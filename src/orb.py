@@ -5,11 +5,8 @@ import cv2
 def orb_detect(train_image, query_image):
 
 
-
     query_image = cv2.imread(query_image)
     train_image = cv2.imread(train_image)
-
-
 
 
     query_image_bw = cv2.cvtColor(query_image,cv2.COLOR_BGR2GRAY)
@@ -26,7 +23,9 @@ def orb_detect(train_image, query_image):
     # initialize the matcher for matching the keypoints then match them
     matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
     matches = matcher.match(query_descriptors, train_descriptors)
-    matches = sorted(matches, key=lambda x: x.distance)
+
+    # Sort by distance
+    sorted_matches = sorted(matches, key=lambda x: x.distance)
 
     #extract the keypoints
     query_keypoints = np.float32([query_keypoints[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
@@ -50,11 +49,6 @@ def orb_detect(train_image, query_image):
     #final_img = cv2.drawMatches(query_image, query_keypoints, train_image, train_keypoints, matches[:50], None)
 
     #final_img = cv2.resize(final_img,(1000,650))
-
-
-
-
-
 
 
 
@@ -87,11 +81,8 @@ def orb_detect(train_image, query_image):
 
     #uncomment to show dimensions
     # Get image dimensions
-    #height, width, channels = train_image.shape  # Channels will be 3 for a color image (BGR)
+    height, width, channels = train_image.shape  # Channels will be 3 for a color image (BGR)
     #print(f'Image Dimensions: {width}x{height}')
-
-
-
 
 
     # uncommment to print coordinates
@@ -104,4 +95,7 @@ def orb_detect(train_image, query_image):
     print("coordinates of train img points: ")
     for i, pt in enumerate(train_keypoints):
         print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}")  
+
+
+    return width, height, sorted_matches, query_keypoints, train_keypoints
 
