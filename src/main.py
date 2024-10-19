@@ -1,10 +1,10 @@
 import orb as orb
 
 def main():
-    base = 'data/airPort.jpg'
+    train = 'data/airPort.jpg'
     query = 'data/airportCrop.png'
 
-    orb.orb_detect(base, query)
+    orb.orb_detect(train, query)
 
 
 if __name__ == "__main__":
