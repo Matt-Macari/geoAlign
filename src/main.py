@@ -4,10 +4,7 @@ import trim as trim
 import matplotlib.pyplot as plt
 from  matplotlib.patches import Polygon as MplPolygon
 import numpy as np
-
-
-
-
+import folder_prompt as folder_prompt
 
 
 def main():
@@ -98,6 +95,8 @@ def main():
     #-------------------------------------------------------------------------------------------
 
 
+    # print(folder_prompt.get_input_path())
+    # print(folder_prompt.get_output_path())
 
 if __name__ == "__main__":
     main()
