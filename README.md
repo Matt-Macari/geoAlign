@@ -26,9 +26,13 @@ Remove any active local branches. To do this:
 Pull main. To do this: 
 > git pull
 
-Now, delete any virtual environments you may have. Next, create a new virtual environment. To do this:
+Now, delete any virtual environments you may have. 
+
 Make sure you're in geoAlign root directory.
+Next, create a new virtual environment. To do this:
 > python -m venv env
+
+run the virtual enviroment
 > source env/bin/activate (Lily, for windows the command is different, and is as follows: > .\env\Scripts\activate)
 
 Now, you must install the dependencies. To do so:
