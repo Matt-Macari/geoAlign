@@ -5,9 +5,19 @@ import matplotlib.pyplot as plt
 from  matplotlib.patches import Polygon as MplPolygon
 import numpy as np
 import folder_prompt as folder_prompt
+import path_prompt as path_prompt
 
 
 def main():
+
+    # Have user select a folder
+    # folder_prompt.select_input_folder()
+    # folder_prompt.select_output_folder()
+
+    # Prompt user through the terminal for path
+    # path_prompt.get_input_path()
+    # path_prompt.get_output_path()
+
     
     train_image_path = 'data/airPort.jpg'
     query_image_path = 'data/airportCrop.png'
@@ -95,8 +105,6 @@ def main():
     #-------------------------------------------------------------------------------------------
 
 
-    # print(folder_prompt.get_input_path())
-    # print(folder_prompt.get_output_path())
 
 if __name__ == "__main__":
     main()
