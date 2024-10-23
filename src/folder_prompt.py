@@ -3,13 +3,13 @@
 from tkinter.filedialog import askdirectory
 import tkinter as tk
 import os
-# os.environ['PYTHONWARNINGS'] = 'ignore::UserWarning'
-# os.environ['NO_IMK_CLIENT'] = '1'  # Disables IMKClient messages
+os.environ['PYTHONWARNINGS'] = 'ignore::UserWarning'
+os.environ['NO_IMK_CLIENT'] = '1'  # Disables IMKClient messages
 
 
 # Hide the Tkinter root window
-# root = tk.Tk()
-# root.withdraw()
+root = tk.Tk()
+root.withdraw()
 
 # Prompts user to select a folder
 # Prints properties of folder user selects
