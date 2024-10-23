@@ -1,6 +1,11 @@
 # Taken directly from: https://medium.com/curious-manava/center-crop-and-scaling-in-opencv-using-python-279c1bb77c74
 
-# NOT YET TESTED
+# TESTED WITH ARIAL_TEXT.JPG: preliminary test appear good. the test is moved to the 
+# data folder for an example(test_center_crop.jpg)
+
+# Scale works but I do not know that it is needed in this application, 
+# we can scale the cropped image if necssacary? as of now it it is only passed the 
+# original image. 
 
 
 
@@ -33,10 +38,10 @@ def scale_image(img, factor=1):
 
 
 if __name__ == "__main__":
-	image = cv2.imread('Kuvempu.jpg')
+	image = cv2.imread('data/arial_test.jpg')
 
 	ccrop_img = center_crop(image, (500,400))
 	scale_img = scale_image(image, factor=1.5)
 
-	cv2.imwrite("Kuvempu_center_crop.jpg", ccrop_img)
-	cv2.imwrite("Kuvempu_scaled.jpg", scale_img)
+	cv2.imwrite("test_center_crop.jpg", ccrop_img)
+	cv2.imwrite("test_scaled.jpg", scale_img)
