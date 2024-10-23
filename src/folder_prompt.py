@@ -11,12 +11,13 @@ os.environ['NO_IMK_CLIENT'] = '1'  # Disables IMKClient messages
 root = tk.Tk()
 root.withdraw()
 
-# prints properties of folder user selects
+# Prompts user to select a folder
+# Prints properties of folder user selects
 # Returns path for folder user selects
 # Returns "exit" if selection is cancled
-def get_input_path():
+def select_input_folder():
     while True:
-        # Step 1: Ask user to select the first folder (input folder)
+        print('Select a folder')
         path = askdirectory(title='Select a folder')
 
         if path:
@@ -33,7 +34,7 @@ def get_input_path():
                     if filename.lower().endswith(('.tif', '.tiff')):
                         tif_files.append(filename)
                         total_tif_size += os.path.getsize(full_path)
-                    else:
+                    elif (filename != '.DS_Store'):
                         other_files.append(filename)
 
             if len(tif_files) > 0:
@@ -47,22 +48,25 @@ def get_input_path():
                     total_size_mb = total_tif_size / (1024 * 1024)
                     print(f"Total size of TIF files: {total_size_mb:.2f} MB")
                 
-                print(f"Number of non-TIF files found: {len(other_files)}")
-                return path  # Only return if TIF files are found
+                if len(other_files) > 0:
+                    print(f"Number of non-TIF files found: {len(other_files)}")
+                return path
             else:
                 print("No TIF files found in the selected folder. Please select a different folder.")
         else:
             print("No folder selected. Exiting the program.")
             return "exit"
 
+# Prompts user to select a folder
 # Returns path for folder user selects
 # Returns "exit" if selection is cancled
-def get_output_path():
+def select_output_folder():
     while True:
             # Step 2: Ask user to select the second folder (output folder)
             print()
+            print('Select a folder to save geo-referenced files to')
             path = askdirectory(
-                title='Select a folder to save geo referenced files to')
+                title='Select a folder to save geo-referenced files to')
             if path:
                 # Step 3: Loop through each TIFF file and create a text file in the output directory
                 print(f"\n Return folder selected: {path}\n")
