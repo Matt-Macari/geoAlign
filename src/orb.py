@@ -31,6 +31,9 @@ def orb_detect(train_image, query_image):
     query_keypoints = np.float32([query_keypoints[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
     train_keypoints = np.float32([train_keypoints[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
 
+    query_keypoints = query_keypoints.tolist()
+    train_keypoints = train_keypoints.tolist()
+
     # Estimate the transformation matrix
     # You can use cv2.estimateAffine2D, cv2.estimateAffinePartial2D, or cv2.findHomography
     # idk the difference look into this
@@ -95,6 +98,11 @@ def orb_detect(train_image, query_image):
     print("coordinates of train img points: ")
     for i, pt in enumerate(train_keypoints):
         print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}")  
+
+
+    print(f'\n\nsorted_matches ({len(sorted_matches)}): {sorted_matches} \n\n\n')
+    print(f'\n\nquery_keypoints ({len(query_keypoints)}): {query_keypoints} \n\n\n')
+    print(f'\n\ntrain_keypoints ({len(train_keypoints)}): {train_keypoints} \n\n\n')
 
 
     return width, height, sorted_matches, query_keypoints, train_keypoints

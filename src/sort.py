@@ -47,17 +47,31 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
     polygons = [polygon1, polygon2, polygon3, polygon4, polygon5, polygon6, polygon7, polygon8, polygon9]
 
     # Extract the keypoints and convert them into Shapely Points
-    query_keypoints_points = [Point(query_keypoints[m.queryIdx]) for m in sorted_matches if m.queryIdx < len(query_keypoints)]
-    train_keypoints_points = [Point(train_keypoints[m.trainIdx]) for m in sorted_matches if m.trainIdx < len(train_keypoints)]
-    
+
+    # Why is this not processing all points?
+    #query_keypoints_points = [Point(query_keypoints[m.queryIdx]) for m in sorted_matches if m.queryIdx < len(query_keypoints)]
+    query_keypoints_points = [Point(kp) for kp in query_keypoints]
+    #train_keypoints_points = [Point(train_keypoints[m.trainIdx]) for m in sorted_matches if m.trainIdx < len(train_keypoints)]
+    train_keypoints_points = [Point(kp) for kp in train_keypoints]
+
+
+
+    print(f'\n\n\nquery_keypoints_points ({len(query_keypoints_points)}): {query_keypoints_points}\n\n\n')
+    print(f'\n\n\ntrain_keypoints_points ({len(train_keypoints_points)}): {train_keypoints_points}\n\n\n')
+
+
+
+
     # Combine the matching Points into a two-dimensional array
     matching_points_array = np.array([[query_pt, train_pt] for query_pt, train_pt in zip(query_keypoints_points, train_keypoints_points)])
+
+    #print(f'\n\n\nmatching_points_array: {matching_points_array}\n\n\n')
 
     matching_keypoints_sect1 = []
     matching_keypoints_sect2 = []
     matching_keypoints_sect3 = []
     matching_keypoints_sect4 = []
-    matching_keypoints_sect5 = []
+    matching_keypoints_sect5 = [] 
     matching_keypoints_sect6 = []
     matching_keypoints_sect7 = []
     matching_keypoints_sect8 = []
@@ -138,4 +152,7 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
     # ------------------------------------------------------------------------------------------
     #-------------------------------------------------------------------------------------------
 
-    return sections
+
+    #polygons does not need to be returned, except for visualization code in main
+    #   when visualization is no longer necessary, modify to only return sections
+    return sections, polygons
