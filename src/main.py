@@ -32,11 +32,6 @@ def main():
                                    sorted_matches, query_keypoints, \
                                    train_keypoints)
     
-    # print('\n\n-----------\n\n -----------\n\n------------\n\n sections list (untrimmed:)\n\n')
-    # for i, each in enumerate(sections_list):
-    #     print(f'Section {i}: {sections_list[i]} \n\n')
-    # print('\n\n-----------\n\n -----------\n\n------------\n\n')
-    
     # after this call, each list in sections_list should be trimmed:
     trimmed_sections_list = trim.trim_sections(sections_list)
 

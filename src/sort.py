@@ -56,8 +56,8 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
 
 
 
-    print(f'\n\n\nquery_keypoints_points ({len(query_keypoints_points)}): {query_keypoints_points}\n\n\n')
-    print(f'\n\n\ntrain_keypoints_points ({len(train_keypoints_points)}): {train_keypoints_points}\n\n\n')
+    # print(f'\n\n\nquery_keypoints_points ({len(query_keypoints_points)}): {query_keypoints_points}\n\n\n')
+    # print(f'\n\n\ntrain_keypoints_points ({len(train_keypoints_points)}): {train_keypoints_points}\n\n\n')
 
 
 
