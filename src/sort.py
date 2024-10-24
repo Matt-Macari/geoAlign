@@ -6,6 +6,10 @@ import numpy as np
 
 
 def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, train_keypoints):
+    
+    # Note:
+    #can probably remove sorted_matches from list of parameters
+    
     xCords = width / 3 
     yCords = height / 3
 
@@ -24,7 +28,7 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
     X5 = xCords * 2
     X6 = xCords * 3
 
-    #define polygon 1
+    #define polygons
     polygon1 = Polygon([(X1,Y1), (X2, Y1), (X2, Y2), (X1, Y2)])
 
     polygon2 = Polygon([(X3,Y1), (X4, Y1), (X4, Y2), (X3, Y2)])
@@ -54,28 +58,17 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
     #train_keypoints_points = [Point(train_keypoints[m.trainIdx]) for m in sorted_matches if m.trainIdx < len(train_keypoints)]
     train_keypoints_points = [Point(kp) for kp in train_keypoints]
 
-
-
     # print(f'\n\n\nquery_keypoints_points ({len(query_keypoints_points)}): {query_keypoints_points}\n\n\n')
     # print(f'\n\n\ntrain_keypoints_points ({len(train_keypoints_points)}): {train_keypoints_points}\n\n\n')
-
-
-
 
     # Combine the matching Points into a two-dimensional array
     matching_points_array = np.array([[query_pt, train_pt] for query_pt, train_pt in zip(query_keypoints_points, train_keypoints_points)])
 
     #print(f'\n\n\nmatching_points_array: {matching_points_array}\n\n\n')
 
-    matching_keypoints_sect1 = []
-    matching_keypoints_sect2 = []
-    matching_keypoints_sect3 = []
-    matching_keypoints_sect4 = []
-    matching_keypoints_sect5 = [] 
-    matching_keypoints_sect6 = []
-    matching_keypoints_sect7 = []
-    matching_keypoints_sect8 = []
-    matching_keypoints_sect9 = []
+    matching_keypoints_sect1 = matching_keypoints_sect2 = matching_keypoints_sect3 \
+    = matching_keypoints_sect4 = matching_keypoints_sect5 = matching_keypoints_sect6 \
+    = matching_keypoints_sect7 = matching_keypoints_sect8 = matching_keypoints_sect9 = []
 
     sections = [matching_keypoints_sect1, matching_keypoints_sect2, \
                 matching_keypoints_sect3, matching_keypoints_sect4, \
