@@ -89,7 +89,7 @@ def orb_detect(train_image, query_image):
 
 
     # uncommment to print coordinates
-    print("coordinates of query img points: ")
+    """     print("coordinates of query img points: ")
     for i, pt in enumerate(query_keypoints):
         print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}") 
 
@@ -102,7 +102,7 @@ def orb_detect(train_image, query_image):
 
     print(f'\n\nsorted_matches ({len(sorted_matches)}): {sorted_matches} \n\n\n')
     print(f'\n\nquery_keypoints ({len(query_keypoints)}): {query_keypoints} \n\n\n')
-    print(f'\n\ntrain_keypoints ({len(train_keypoints)}): {train_keypoints} \n\n\n')
+    print(f'\n\ntrain_keypoints ({len(train_keypoints)}): {train_keypoints} \n\n\n') """
 
 
     return width, height, sorted_matches, query_keypoints, train_keypoints

@@ -25,9 +25,9 @@ def trim_sections(sections_list):
                 trimmed_sections_list[i].append(section.pop(0))
                 keypoint_count += 1
 
-    print('\nTRIMMED: \n')
-    for i, each in enumerate(trimmed_sections_list):
-        print(f'Section {i}: {trimmed_sections_list[i]} \n\n')
+    # print('\nTRIMMED: \n')
+    # for i, each in enumerate(trimmed_sections_list):
+    #     print(f'Section {i}: {trimmed_sections_list[i]} \n\n')
 
 
     return trimmed_sections_list
