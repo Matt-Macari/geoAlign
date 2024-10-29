@@ -20,9 +20,26 @@ def orb_detect(train_image, query_image):
     query_keypoints, query_descriptors = orb.detectAndCompute(query_image_bw, None)
     train_keypoints, train_descriptors = orb.detectAndCompute(train_image_bw, None)
 
+
     # initialize the matcher for matching the keypoints then match them
     matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
     matches = matcher.match(query_descriptors, train_descriptors)
+
+
+
+
+#----------------------------------------
+        # Draw the matches between the query and train images
+    matched_image = cv2.drawMatches(query_image, query_keypoints, train_image, train_keypoints, matches, None, 
+                                    flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+    
+
+    # Display the image with matches
+    cv2.imshow('Matches', matched_image)
+    cv2.waitKey(0)  # Wait until a key is pressed
+    cv2.destroyAllWindows()  # Close the window 
+
+   # ------------------------------------- 
 
     # Sort by distance
     sorted_matches = sorted(matches, key=lambda x: x.distance)
@@ -105,5 +122,17 @@ def orb_detect(train_image, query_image):
     print(f'\n\ntrain_keypoints ({len(train_keypoints)}): {train_keypoints} \n\n\n') """
 
 
+
+
+    # Draw the keypoints on the images
+    query_image_with_keypoints = cv2.drawKeypoints(query_image, query_keypoints, None, color=(0, 255, 0), flags=0)
+    train_image_with_keypoints = cv2.drawKeypoints(train_image, train_keypoints, None, color=(0, 255, 0), flags=0)
+
+    # Display the images with keypoints
+
+
+
+
     return width, height, sorted_matches, query_keypoints, train_keypoints
+
 
