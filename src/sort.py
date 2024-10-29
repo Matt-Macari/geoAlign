@@ -26,6 +26,8 @@ def sort_keypoints_by_section(width, height, query_keypoints, train_keypoints):
     X6 = xCords * 3
 
     #define polygons
+    polygon_remove_top = 0
+
     polygon1 = Polygon([(X1,Y1), (X2, Y1), (X2, Y2), (X1, Y2)])
 
     polygon2 = Polygon([(X3,Y1), (X4, Y1), (X4, Y2), (X3, Y2)])
