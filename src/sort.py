@@ -5,10 +5,7 @@ from  matplotlib.patches import Polygon as MplPolygon
 import numpy as np
 
 
-def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, train_keypoints):
-    
-    # Note:
-    #can probably remove sorted_matches from list of parameters
+def sort_keypoints_by_section(width, height, query_keypoints, train_keypoints):
     
     xCords = width / 3 
     yCords = height / 3
@@ -51,11 +48,7 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
     polygons = [polygon1, polygon2, polygon3, polygon4, polygon5, polygon6, polygon7, polygon8, polygon9]
 
     # Extract the keypoints and convert them into Shapely Points
-
-    # Why is this not processing all points?
-    #query_keypoints_points = [Point(query_keypoints[m.queryIdx]) for m in sorted_matches if m.queryIdx < len(query_keypoints)]
     query_keypoints_points = [Point(kp) for kp in query_keypoints]
-    #train_keypoints_points = [Point(train_keypoints[m.trainIdx]) for m in sorted_matches if m.trainIdx < len(train_keypoints)]
     train_keypoints_points = [Point(kp) for kp in train_keypoints]
 
     # print(f'\n\n\nquery_keypoints_points ({len(query_keypoints_points)}): {query_keypoints_points}\n\n\n')
@@ -81,8 +74,6 @@ def sort_keypoints_by_section(width, height, sorted_matches, query_keypoints, tr
         for i, polygon in enumerate(polygons): 
             if polygon.contains(query_point):
                 sections[i].append([query_point, train_point])
-
-
 
     # ------------------------------------------------------------------------------------------ 
     # ----------------------------STARTING VISUALIZATION CODE ----------------------------------
