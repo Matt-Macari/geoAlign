@@ -29,8 +29,7 @@ def main():
     # can remove polygons, this is only for the visualization below (remove polygons 
     #       from being returned in sort_keypoints_by_section)
     sections_list, polygons = sort.sort_keypoints_by_section(train_image_width, train_image_height, \
-                                   sorted_matches, query_keypoints, \
-                                   train_keypoints)
+                                   query_keypoints, train_keypoints)
     
     # after this call, each list in sections_list should be trimmed:
     trimmed_sections_list = trim.trim_sections(sections_list)
