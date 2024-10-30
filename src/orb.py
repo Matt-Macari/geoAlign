@@ -30,8 +30,8 @@ def orb_detect(train_image, query_image):
 
 
 
-#---------SHOW MATCHES VISUAL: ----------
-#----------------------------------------
+#---------SHOW MATCHES VISUAL: ---------------------------------------------------------
+#---------------------------------------------------------------------------------------
     # Draw the matches between the query and train images
     matched_image = cv2.drawMatches(query_image, query_keypoints, train_image, train_keypoints, sorted_matches, None, 
                                     flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
@@ -40,7 +40,8 @@ def orb_detect(train_image, query_image):
     cv2.imshow('Matches', matched_image)
     cv2.waitKey(0)  # Wait until a key is pressed
     cv2.destroyAllWindows()  # Close the window 
-   # ------------------------------------- 
+#--------------------------------------------------------------------------------------- 
+#--------------------------------------------------------------------------------------- 
 
     #extract the keypoints
     query_keypoints = np.float32([query_keypoints[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
@@ -48,38 +49,6 @@ def orb_detect(train_image, query_image):
 
     query_keypoints = query_keypoints.tolist()
     train_keypoints = train_keypoints.tolist()
-
-    # Estimate the transformation matrix
-    # You can use cv2.estimateAffine2D, cv2.estimateAffinePartial2D, or cv2.findHomography
-    # idk the difference look into this
-    # For affine transformation
-    #M, mask = cv2.estimateAffine2D(query_keypoints, train_keypoints)  
-
-    # For homography
-    # M, mask = cv2.findHomography(query_keypoints, train_pts, cv2.RANSAC)
-
-    #warp the image to fit 
-    #aligned_img = cv2.warpAffine(query_image, M, (train_image.shape[1], train_image.shape[0]))
-
-    #draw matches to the final image conatining both images 
-    #drawMatches() function does this
-
-    #final_img = cv2.drawMatches(query_image, query_keypoints, train_image, train_keypoints, matches[:50], None)
-
-    #final_img = cv2.resize(final_img,(1000,650))
-
-
-
-
-    #show the final image
-    #show matches
-    #cv2.imshow("matches:", final_img) 
-    #show the aligned image, this does not work as expected right now. 
-    #cv2.imshow("aligned image", aligned_img) # show aligned img
-
-    #cv2.waitKey(5000) #set to 0 if you want to exit the picture manually. 
-    #cv2.destroyAllWindows()  # This will close the window after the key press.
-
 
     #uncommment to print coordinates
     # print("coordinates of query img points: ")
@@ -92,10 +61,6 @@ def orb_detect(train_image, query_image):
     # for i, pt in enumerate(train_pts):
     #     print(f"keypoint {i + 1}: x = {pt[0][0]}, y = {pt[0][1]}")  
 
-    """ 
-    print("working?")
-    for each in matches: 
-        print(each.distance) """
 
     #uncomment to show dimensions
     # Get image dimensions
@@ -118,17 +83,6 @@ def orb_detect(train_image, query_image):
     print(f'\n\nsorted_matches ({len(sorted_matches)}): {sorted_matches} \n\n\n')
     print(f'\n\nquery_keypoints ({len(query_keypoints)}): {query_keypoints} \n\n\n')
     print(f'\n\ntrain_keypoints ({len(train_keypoints)}): {train_keypoints} \n\n\n') """
-
-
-
-
-    # Draw the keypoints on the images
-    # query_image_with_keypoints = cv2.drawKeypoints(query_image, query_keypoints, None, color=(0, 255, 0), flags=0)
-    # train_image_with_keypoints = cv2.drawKeypoints(train_image, train_keypoints, None, color=(0, 255, 0), flags=0)
-
-    # Display the images with keypoints
-
-
 
 
     return width, height, sorted_matches, query_keypoints, train_keypoints
