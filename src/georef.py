@@ -4,16 +4,15 @@ from shapely.geometry import Point
 # Expects an image path, turns it into a GDALDataset, 
 #   then returns a geotransform of that image
 
-# the following is taken from gdal.org:
-#   A a GDALDataset contains a list of raster bands, all pertaining 
+# from gdal.org:
+#   - A a GDALDataset contains a list of raster bands, all pertaining 
 #       to the same area, and having the same resolution. It also has metadata, 
 #       a coordinate system, a georeferencing transform, size of raster and various other information.
 
-
-#   A geotransform is an affine transformation from the image coordinate space (row, column), 
+#   - A geotransform is an affine transformation from the image coordinate space (row, column), 
 #        also known as (pixel, line) to the georeferenced coordinate space (projected or geographic coordinates).
 
-#        A geotransform consists in a set of 6 coefficients:
+#   - A geotransform consists in a set of 6 coefficients:
 
 #       GT(0) x-coordinate of the upper-left corner of the upper-left pixel.
 #       GT(1) w-e pixel resolution / pixel width.
