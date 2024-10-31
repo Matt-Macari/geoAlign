@@ -39,16 +39,13 @@ def main():
     sections_list, polygons = sort.sort_keypoints_by_section(train_image_width, train_image_height, \
                                    query_keypoints, train_keypoints)
     
-    # after this call, each list in sections_list should be trimmed:
-    trimmed_sections_list = trim.trim_sections(sections_list)
+    # trim the lists:
+    # trimmed_sections_list is only used for the visualization below, 
+    #   flattened_trimmed_sections_list is used for georeference() call
+    trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
 
-    #transform list to two-dimensions:
-    ground_control_points = [item if isinstance(item, list) else [item] for sublist in trimmed_sections_list for item in (sublist if isinstance(sublist, list) else [sublist])]
-    
     # georeference 
-    gf.georeference(ground_control_points, tiff_train_image_path, tiff_query_image_path, out_path)
-
-
+    gf.georeference(flattened_trimmed_sections_list, tiff_train_image_path, tiff_query_image_path, out_path)
 
     # ------------------------------------------------------------------------------------------ 
     # ----------------------------STARTING VISUALIZATION CODE ----------------------------------
