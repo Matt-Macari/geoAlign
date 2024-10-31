@@ -28,6 +28,8 @@ def image_to_geotransform(image_path):
 
 # Expects a geotransform, an x pixel and y pixel, and returns the real geographic
 #   coordinate of those pixels 
+#       X = GT(0) + x * GT(1) + y * GT(2)
+#       Y GT(3) + x * GT(4) + y * GT(5)
 def pixel_to_geo_coords(geotransform, px, py):
     origin_x, pixel_width, _, origin_y, _, pixel_height = geotransform
     geo_x = origin_x + px * pixel_width
