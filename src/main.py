@@ -6,6 +6,8 @@ from  matplotlib.patches import Polygon as MplPolygon
 import numpy as np
 import folder_prompt as folder_prompt
 import path_prompt as path_prompt
+import georef as gf
+
 
 
 def main():
@@ -22,6 +24,12 @@ def main():
     train_image_path = 'data/airPort.jpg'
     query_image_path = 'data/airportCrop.png'
 
+    # gonna need some working tiffs... these are placeholders for now (will not fully work)
+    tiff_train_image_path = 'data/airPort.jpg'
+    tiff_query_image_path = 'data/airportCrop.png'
+
+    out_path = 'out_data/airportCrop_out.png'
+
     train_image_width, train_image_height, sorted_matches, \
     query_keypoints, train_keypoints = orb.orb_detect(train_image_path, query_image_path)
 
@@ -34,6 +42,11 @@ def main():
     # after this call, each list in sections_list should be trimmed:
     trimmed_sections_list = trim.trim_sections(sections_list)
 
+    #transform list to two-dimensions:
+    ground_control_points = [item if isinstance(item, list) else [item] for sublist in trimmed_sections_list for item in (sublist if isinstance(sublist, list) else [sublist])]
+    
+    # georeference 
+    gf.georeference(ground_control_points, tiff_train_image_path, tiff_query_image_path, out_path)
 
 
 
