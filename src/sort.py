@@ -61,9 +61,15 @@ def sort_keypoints_by_section(width, height, query_keypoints, train_keypoints):
 
     #print(f'\n\n\nmatching_points_array: {matching_points_array}\n\n\n')
 
-    matching_keypoints_sect1 = matching_keypoints_sect2 = matching_keypoints_sect3 \
-    = matching_keypoints_sect4 = matching_keypoints_sect5 = matching_keypoints_sect6 \
-    = matching_keypoints_sect7 = matching_keypoints_sect8 = matching_keypoints_sect9 = []
+    matching_keypoints_sect1 = []
+    matching_keypoints_sect2 = []
+    matching_keypoints_sect3 = []
+    matching_keypoints_sect4 = []
+    matching_keypoints_sect5 = []
+    matching_keypoints_sect6 = []
+    matching_keypoints_sect7 = []
+    matching_keypoints_sect8 = []
+    matching_keypoints_sect9 = []
 
     sections = [matching_keypoints_sect1, matching_keypoints_sect2, \
                 matching_keypoints_sect3, matching_keypoints_sect4, \

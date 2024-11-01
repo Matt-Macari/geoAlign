@@ -7,18 +7,34 @@
 #   ... An even more imperfect dataset contains a sum of less than 18 keypoints.   
 
 def trim_sections(sections_list):
-    sect1 = sect2 = sect3 = sect4 = sect5 \
-    = sect6 = sect7 = sect8 = sect9 = []
+    sect1 = [] 
+    sect2 = []
+    sect3 = []
+    sect4 = []
+    sect5 = []
+    sect6 = []
+    sect7 = []
+    sect8 = []
+    sect9 = []
 
     trimmed_sections_list = [sect1, sect2, sect3, sect4, sect5, sect6, sect7, sect8, sect9]
     
+    # Count total keypoints in the input list
+    total_keypoints = sum(len(section) for section in sections_list)
+
+    # Calculate the number of keypoints to trim to, considering available points
+    target_keypoint_count = min(total_keypoints, 18)
+
+
     keypoint_count = 0
 
-    while (keypoint_count < 18):
+    while (keypoint_count < target_keypoint_count):
         for i, section in enumerate(sections_list):
-            if (len(section) != 0):
+            if section:
                 trimmed_sections_list[i].append(section.pop(0))
                 keypoint_count += 1
+                if keypoint_count >= target_keypoint_count:
+                    break
     
 
     #transform list to two-dimensions:
