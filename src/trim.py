@@ -7,6 +7,14 @@
 #   ... An even more imperfect dataset contains a sum of less than 18 keypoints.   
 
 def trim_sections(sections_list):
+    # Empty the first 4 lists (out of bounds keypoints)
+    for i in range(4):
+        sections_list[i] = []
+    
+    OB_upper = []
+    OB_left = []
+    OB_right = []
+    OB_bottom = []
     sect1 = [] 
     sect2 = []
     sect3 = []
@@ -17,7 +25,7 @@ def trim_sections(sections_list):
     sect8 = []
     sect9 = []
 
-    trimmed_sections_list = [sect1, sect2, sect3, sect4, sect5, sect6, sect7, sect8, sect9]
+    trimmed_sections_list = [OB_upper, OB_left, OB_right, OB_bottom, sect1, sect2, sect3, sect4, sect5, sect6, sect7, sect8, sect9]
     
     # Count total keypoints in the input list
     total_keypoints = sum(len(section) for section in sections_list)

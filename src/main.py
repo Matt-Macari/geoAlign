@@ -42,8 +42,6 @@ def main():
     #   flattened_trimmed_sections_list is used for georeference() call
     trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
 
-    print(trimmed_sections_list)
-
     # georeference 
     gf.georeference(flattened_trimmed_sections_list, tiff_train_image_path, tiff_query_image_path, out_path)
 
@@ -89,7 +87,13 @@ def main():
 
         # Add a label to the polygon at its centroid
         centroid = each.centroid
-        ax.text(centroid.x, centroid.y, f'Polygon {i+1}', color='black', fontsize=12, ha='center', va='center')
+
+        if i == 0: ax.text(centroid.x, centroid.y, f'Upper OB', color='black', fontsize=12, ha='center', va='center')
+        elif i== 1: ax.text(centroid.x, centroid.y, f'Left OB', color='black', fontsize=12, ha='center', va='center')
+        elif i == 2: ax.text(centroid.x, centroid.y, f'Right OB', color='black', fontsize=12, ha='center', va='center')
+        elif i == 3: ax.text(centroid.x, centroid.y, f'Bottom OB', color='black', fontsize=12, ha='center', va='center')
+        else:
+            ax.text(centroid.x, centroid.y, f'Polygon {i-3}', color='black', fontsize=12, ha='center', va='center')
 
     # Add a small padding to the limits
     padding = 50  # Adjust padding as needed
