@@ -34,6 +34,10 @@ def pixel_to_geo_coords(geotransform, px, py):
     origin_x, pixel_width, _, origin_y, _, pixel_height = geotransform
     geo_x = origin_x + px * pixel_width
     geo_y = origin_y + py * pixel_height
+
+    # print(f'Longitude (x): {geo_x}')
+    # print(f'Latitude (y): {geo_y}')
+
     return geo_x, geo_y
 
 # Expects a 2-d list of keypoints (matching control points between query and train image), a train
@@ -85,6 +89,7 @@ def georeference(keypoints, train_image_path, query_image_path, output_image_pat
         #       - y is The real-world y-coordinate of the GCP (latitude)
         #       - pixel is the x-coordinate of the GCP in image (pixel) coordinates, representing the column number
         #       - line is the y-coordinate of the GCP in image (pixel) coordinates, representing the row number
+        #       - 0 is elevation - implement later? is it in the geoTIFF?
         gcp = gdal.GCP(train_geo_x, train_geo_y, 0, query_x, query_y)
         gcps.append(gcp)
 

@@ -20,18 +20,16 @@ def main():
     # path_prompt.get_input_path()
     # path_prompt.get_output_path()
 
-    
     train_image_path = 'data/airPort.jpg'
     query_image_path = 'data/airportCrop.png'
 
-    # gonna need some working tiffs... these are placeholders for now (will not fully work)
-    tiff_train_image_path = 'data/airPort.jpg'
-    tiff_query_image_path = 'data/airportCrop.png'
+    tiff_train_image_path = 'data/clipped_base_map.tif'
+    tiff_query_image_path = 'data/CH-70-10B-27.tif'
 
-    out_path = 'out_data/airportCrop_out.png'
+    out_path = 'out_data/CH-70-10B-27.tif'
 
     train_image_width, train_image_height, sorted_matches, \
-    query_keypoints, train_keypoints = orb.orb_detect(train_image_path, query_image_path)
+    query_keypoints, train_keypoints = orb.orb_detect(tiff_train_image_path, tiff_query_image_path)
 
     # note: after sorting, some lists may be empty
     # can remove polygons, this is only for the visualization below (remove polygons 
@@ -43,6 +41,8 @@ def main():
     # trimmed_sections_list is only used for the visualization below, 
     #   flattened_trimmed_sections_list is used for georeference() call
     trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
+
+    print(trimmed_sections_list)
 
     # georeference 
     gf.georeference(flattened_trimmed_sections_list, tiff_train_image_path, tiff_query_image_path, out_path)
@@ -107,8 +107,6 @@ def main():
     #-----------------------------ENDING VISUALIZATION CODE-------------------------------------
     # ------------------------------------------------------------------------------------------
     #-------------------------------------------------------------------------------------------
-
-
 
 if __name__ == "__main__":
     main()
