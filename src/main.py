@@ -49,9 +49,6 @@ def main():
             #   flattened_trimmed_sections_list is used for georeference() call
             trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
 
-            if (base == 'test_hsu' or base == 'test_arcata'):
-                flattened_trimmed_sections_list = []
-
             # if no keypoints are found, print error and skip georeference call
             if not flattened_trimmed_sections_list or all(not row for row in flattened_trimmed_sections_list):
                 print(f'\nERROR: No keypoints found in {curr_file}... Continuing processing with the next image')
