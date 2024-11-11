@@ -7,44 +7,70 @@ import numpy as np
 import folder_prompt as folder_prompt
 import path_prompt as path_prompt
 import georef as gf
+import os
+import time
 
 
 
 def main():
 
-    # Have user select a folder
-    # folder_prompt.select_input_folder()
-    # folder_prompt.select_output_folder()
+    train_image_path = '../test_img/train_oldtown_base.tif'
 
-    # Prompt user through the terminal for path
-    # path_prompt.get_input_path()
-    # path_prompt.get_output_path()
+    # Prompt user to select an input folder
+    input_dir, num_tiff_files = folder_prompt.select_input_folder()
 
-    train_image_path = 'data/airPort.jpg'
-    query_image_path = 'data/airportCrop.png'
+    # Prompt user to select an output folder
+    output_dir = folder_prompt.select_output_folder()
 
-    tiff_train_image_path = 'data/clipped_base_map.tif'
-    tiff_query_image_path = 'data/CH-70-10B-27.tif'
+    num_files_processed = 0
+    num_files_failed = 0
 
-    out_path = 'out_data/CH-70-10B-27.tif'
+    # loop through each .tif in given directory
+    for filename in os.listdir(input_dir):
+        if filename.endswith(".tif"):
+            curr_file = os.path.join(input_dir, filename)
+            # set output path (output_dir + current file being processed, with _out appended)
+            base, ext = os.path.splitext(os.path.basename(curr_file))
+            out_path = output_dir + '/' + f"{base}_out{ext}"
 
-    train_image_width, train_image_height, sorted_matches, \
-    query_keypoints, train_keypoints = orb.orb_detect(tiff_train_image_path, tiff_query_image_path)
-
-    # note: after sorting, some lists may be empty
-    # can remove polygons, this is only for the visualization below (remove polygons 
-    #       from being returned in sort_keypoints_by_section)
-    sections_list, polygons = sort.sort_keypoints_by_section(train_image_width, train_image_height, \
-                                   query_keypoints, train_keypoints)
+            train_image_width, train_image_height, sorted_matches, \
+            query_keypoints, train_keypoints = orb.orb_detect(train_image_path, curr_file)
     
-    # trim the lists:
-    # trimmed_sections_list is only used for the visualization below, 
-    #   flattened_trimmed_sections_list is used for georeference() call
-    trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
+            # note: after sorting, some lists may be empty
+            # can remove polygons, this is only for the visualization below (remove polygons 
+            #       from being returned in sort_keypoints_by_section)
+            sections_list, polygons = sort.sort_keypoints_by_section(train_image_width, train_image_height, \
+                                        query_keypoints, train_keypoints)
+    
+            # trim the lists:
+            # trimmed_sections_list is only used for the visualization below, 
+            #   flattened_trimmed_sections_list is used for georeference() call
+            trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
 
-    # georeference 
-    gf.georeference(flattened_trimmed_sections_list, tiff_train_image_path, tiff_query_image_path, out_path)
+            if (base == "test_hsu"):
+                flattened_trimmed_sections_list = []
 
+            # if no keypoints are found, print error and skip georeference call
+            if not flattened_trimmed_sections_list or all(not row for row in flattened_trimmed_sections_list):
+                print(f'\nERROR: No keypoints found in {curr_file}... Continuing processing with the next image')
+                num_files_processed += 1
+                num_files_failed += 1
+                continue
+
+            # georeference 
+            gf.georeference(flattened_trimmed_sections_list, train_image_path, curr_file, out_path)
+            num_files_processed += 1
+
+            print(f'\rProcessing file {num_files_processed} out of {num_tiff_files}', end='', flush=True)
+            time.sleep(0.25)
+    print('\n\n-----------------------')
+    print('\nFiles have been processed...')
+    print(f'\nNumber of files successfully georeferenced: {num_files_processed - num_files_failed}')
+    print(f'\nNumber of failed files: {num_files_failed}')
+    print(f'\nCheck {output_dir} for the results.')
+
+
+"""
     # ------------------------------------------------------------------------------------------ 
     # ----------------------------STARTING VISUALIZATION CODE ----------------------------------
     #-------------------------------------------------------------------------------------------
@@ -111,6 +137,6 @@ def main():
     #-----------------------------ENDING VISUALIZATION CODE-------------------------------------
     # ------------------------------------------------------------------------------------------
     #-------------------------------------------------------------------------------------------
-
+"""
 if __name__ == "__main__":
     main()

@@ -17,13 +17,17 @@ root.withdraw()
 # Returns "exit" if selection is cancled
 def select_input_folder():
     while True:
-        print('Select a folder')
-        path = askdirectory(title='Select a folder')
+        #print('Select input directory')
+        path = askdirectory(title='Select input directory')
 
         if path:
-            print(f"\nFolder selected: {path}\n")
+            print(f"\nSelected input directory: {path}\n")
+
+            # Change path from absolute to relative:
+            path = os.path.relpath(path)
 
             tif_files = []
+
             other_files = []
             total_tif_size = 0
 
@@ -37,22 +41,24 @@ def select_input_folder():
                     elif (filename != '.DS_Store'):
                         other_files.append(filename)
 
-            if len(tif_files) > 0:
-                print(f"Number of TIF files found: {len(tif_files)}")
+            num_tif_files = len(tif_files)
+            if num_tif_files > 0:
+                print('Input directory statistics:')
+                print(f"Number of TIFF files: {num_tif_files}")
 
                 # Check if size is 1 GB or more and display accordingly
                 total_size_gb = total_tif_size / (1024 * 1024 * 1024)
                 if total_size_gb >= 1:
-                    print(f"Total size of TIF files: {total_size_gb:.2f} GB")
+                    print(f"Total size of all TIFF files: {total_size_gb:.2f} GB")
                 else:
                     total_size_mb = total_tif_size / (1024 * 1024)
-                    print(f"Total size of TIF files: {total_size_mb:.2f} MB")
+                    print(f"Total size of all TIFF files: {total_size_mb:.2f} MB")
                 
                 if len(other_files) > 0:
-                    print(f"Number of non-TIF files found: {len(other_files)}")
-                return path
+                    print(f"Number of non-TIFF files found: {len(other_files)}")
+                return path, num_tif_files
             else:
-                print("No TIF files found in the selected folder. Please select a different folder.")
+                print("No TIFF files found in the selected folder. Please select a different folder.")
         else:
             print("No folder selected. Exiting the program.")
             return "exit"
@@ -63,13 +69,14 @@ def select_input_folder():
 def select_output_folder():
     while True:
             # Step 2: Ask user to select the second folder (output folder)
-            print()
-            print('Select a folder to save geo-referenced files to')
+            #print()
+            #print('Select output directory')
             path = askdirectory(
-                title='Select a folder to save geo-referenced files to')
+                title='Select output directory')
             if path:
                 # Step 3: Loop through each TIFF file and create a text file in the output directory
-                print(f"\n Return folder selected: {path}\n")
+                print(f"\nSelected output directory: {path}\n")
+                print('-----------------------\n')
                 return path
             else:
                 print("No folder selected. Exiting the program.")
