@@ -1,6 +1,11 @@
 from osgeo import gdal, osr
 from shapely.geometry import Point
 
+
+# Suppress all GDAL warnings
+gdal.PushErrorHandler('CPLQuietErrorHandler')
+gdal.DontUseExceptions()
+
 # Expects an image path, turns it into a GDALDataset, 
 #   then returns a geotransform of that image
 
@@ -139,5 +144,5 @@ def georeference(keypoints, train_image_path, query_image_path, output_image_pat
     out_ds = None
     query_ds = None
 
-    print(f'\n\n **************SUCCESS************** \n\n New georeferenced tiff has been written to: {output_image_path}\n\n')
+    #print(f'\n\n **************SUCCESS************** \n\n New georeferenced tiff has been written to: {output_image_path}\n\n')
 
