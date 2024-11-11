@@ -24,6 +24,7 @@ def main():
 
     num_files_processed = 0
     num_files_failed = 0
+    failed_files = []
 
     # loop through each .tif in given directory
     for filename in os.listdir(input_dir):
@@ -33,6 +34,7 @@ def main():
             base, ext = os.path.splitext(os.path.basename(curr_file))
             out_path = output_dir + '/' + f"{base}_out{ext}"
 
+            # find keypoints with orb algorithm: 
             train_image_width, train_image_height, sorted_matches, \
             query_keypoints, train_keypoints = orb.orb_detect(train_image_path, curr_file)
     
@@ -47,7 +49,7 @@ def main():
             #   flattened_trimmed_sections_list is used for georeference() call
             trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
 
-            if (base == "test_hsu"):
+            if (base == 'test_hsu' or base == 'test_arcata'):
                 flattened_trimmed_sections_list = []
 
             # if no keypoints are found, print error and skip georeference call
@@ -55,6 +57,7 @@ def main():
                 print(f'\nERROR: No keypoints found in {curr_file}... Continuing processing with the next image')
                 num_files_processed += 1
                 num_files_failed += 1
+                failed_files.append(curr_file)
                 continue
 
             # georeference 
@@ -67,8 +70,12 @@ def main():
     print('\nFiles have been processed...')
     print(f'\nNumber of files successfully georeferenced: {num_files_processed - num_files_failed}')
     print(f'\nNumber of failed files: {num_files_failed}')
-    print(f'\nCheck {output_dir} for the results.')
-
+    if failed_files:
+        print('\nFiles that failed during processing:\n')
+        for each in failed_files:
+            print(f'{each}\n')
+    print('------------------------------------------------------------------------')
+    print(f'Check {output_dir} for the results.')
 
 """
     # ------------------------------------------------------------------------------------------ 
