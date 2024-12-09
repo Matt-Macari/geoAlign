@@ -68,7 +68,6 @@ def main():
             num_files_processed += 1
 
             print(f'\rProcessing file {num_files_processed} out of {num_tiff_files}', end='', flush=True)
-            time.sleep(0.25)
     print('\n\n-----------------------')
     print('\nFiles have been processed...')
     print(f'\nNumber of files successfully georeferenced: {num_files_processed - num_files_failed}')
