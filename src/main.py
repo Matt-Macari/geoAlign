@@ -9,6 +9,7 @@ import path_prompt as path_prompt
 import georef as gf
 import os
 import time
+import sys
 
 
 
@@ -18,9 +19,14 @@ def main():
 
     # Prompt user to select an input folder
     input_dir, num_tiff_files = folder_prompt.select_input_folder()
+    if input_dir == "exit":
+        sys.exit()
 
     # Prompt user to select an output folder
     output_dir = folder_prompt.select_output_folder()
+
+    if output_dir == "exit":
+        sys.exit()
 
     num_files_processed = 0
     num_files_failed = 0
