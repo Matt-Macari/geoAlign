@@ -2,35 +2,46 @@
 # Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
 #             for California Polytechnic State University, Humboldt               #
 ###################################################################################
-import orb as orb
-import sort as sort
-import trim as trim
+from orb import orb_detect
+from sort import sort_keypoints_by_section
+from trim import trim_sections
 import matplotlib.pyplot as plt
 from  matplotlib.patches import Polygon as MplPolygon
 import numpy as np
-import folder_prompt as folder_prompt
-import path_prompt as path_prompt
-import georef as gf
+from folder_prompt import select_input_folder, select_output_folder
+from path_prompt import get_input_path, get_output_path
+from georef import georeference
 import os
-import time
 import sys
-
-
 
 def main():
 
-    train_image_path = 'data/demo_base.tif'
+    # IMPORTANT
+    # Set train image to relative or absolute path in local directory 
+    train_image_path = '../base.tif'
 
     # Prompt user to select an input folder
-    input_dir, num_tiff_files = folder_prompt.select_input_folder()
+    input_dir, num_tiff_files = select_input_folder()
     if input_dir == "exit":
         sys.exit()
 
     # Prompt user to select an output folder
-    output_dir = folder_prompt.select_output_folder()
-
+    output_dir = select_output_folder()
     if output_dir == "exit":
         sys.exit()
+
+    # uncommment to select path through the terminal instead of using a folder selector
+    """
+    # Prompt user to select an input folder
+    input_dir, num_tiff_files = get_input_path()
+    if input_dir == "exit":
+        sys.exit()
+
+    # Prompt user to select an output folder
+    output_dir = get_output_path()
+    if output_dir == "exit":
+        sys.exit()
+    """
 
     num_files_processed = 0
     num_files_failed = 0
@@ -46,18 +57,18 @@ def main():
 
             # find keypoints with orb algorithm: 
             train_image_width, train_image_height, sorted_matches, \
-            query_keypoints, train_keypoints = orb.orb_detect(train_image_path, curr_file)
+            query_keypoints, train_keypoints = orb_detect(train_image_path, curr_file)
     
             # note: after sorting, some lists may be empty
             # can remove polygons, this is only for the visualization below (remove polygons 
             #       from being returned in sort_keypoints_by_section)
-            sections_list, polygons = sort.sort_keypoints_by_section(train_image_width, train_image_height, \
+            sections_list, polygons = sort_keypoints_by_section(train_image_width, train_image_height, \
                                         query_keypoints, train_keypoints)
     
             # trim the lists:
             # trimmed_sections_list is only used for the visualization below, 
             #   flattened_trimmed_sections_list is used for georeference() call
-            trimmed_sections_list, flattened_trimmed_sections_list = trim.trim_sections(sections_list)
+            trimmed_sections_list, flattened_trimmed_sections_list = trim_sections(sections_list)
 
             # if no keypoints are found, print error and skip georeference call
             if not flattened_trimmed_sections_list or all(not row for row in flattened_trimmed_sections_list):
@@ -68,7 +79,7 @@ def main():
                 continue
 
             # georeference 
-            gf.georeference(flattened_trimmed_sections_list, train_image_path, curr_file, out_path)
+            georeference(flattened_trimmed_sections_list, train_image_path, curr_file, out_path)
             num_files_processed += 1
 
             print(f'\rProcessing file {num_files_processed} out of {num_tiff_files}', end='', flush=True)
