@@ -1,46 +1,104 @@
-geoAlign
+# GeoAlign
+Aerial Photograph Georeferencing Software   
 
-geoAlign Project
+*Made for California Polytechnic State University, Humboldt*
 
-marcot branch added this
+## Table of Contents
+1. [Description](#description)
+2. [Authors](#authors)
+3. [Getting Started](#getting-started)
+    - [Installing](#installing)
+    - [Dependencies](#dependencies)
+    - [Virtual Enviroment](#virtual-enviroment)
+    - [Executing Program](#executing-program)
+4. [Note](#note)
 
-Installs: 
-for orb.py install, 
-pip install numpy
-pip install opencv-python
+## 1. Description
 
-for sortCords.py install,
-pip install matplotlib
-pip install shapely
+### What is GeoAlign
+GeoAlign is a python based software to automate georeferencing aerial photographs
 
--------------------------------------------------------------------------------------------------------------------
+GeoAligns Purpose is to speed up the time-consuming process of georeferencing historical aerial photographs stored in the Cal Poly Humboldt Library Special Collections Archive.
 
-There are requirements for each of us to have accurate, synced dependencies for the project. 
+### GeoAlign is intended to be used by
+- Cal Poly Humboldt Library administration and archive specialists
+- Faculty from the Department of Environmental Science & Management (ESM)
+- Faculty from the Department of Geography, Environment & Spatial Analysis (GES)
 
-Follow the instructions to get it working:
+## 2. Authors
+- [Matthew Marcotullio](https://github.com/MatthewMarcotullio)  
+- [Matt Macari](https://github.com/Matt-Macari)  
+- [Lily Yassemi](https://github.com/lilyyassemi)  
+- [Dylan Lucas](https://github.com/Dylanlucas01)
 
-Remove any active local branches. To do this:
-> git checkout main
-> git branch -d <branch_name>
 
-Pull main. To do this: 
-> git pull
+## 3. Getting Started
 
-Now, delete any virtual environments you may have. 
+### Installing
+The source code is available as a public repository 
+It can be downloaded at: https://github.com/Matt-Macari/geoAlign
 
-Make sure you're in geoAlign root directory.
-Next, create a new virtual environment. To do this:
-> python -m venv env
+Clone the Repo
+```
+git clone https://github.com/Matt-Macari/geoAlign.git
+```
 
-run the virtual enviroment
-> source env/bin/activate (Lily, for windows the command is different, and is as follows: > .\env\Scripts\activate)
+### Dependencies
+- Have python3 installed
+- Have gdal installed locally - [how to download gdal](https://mapscaping.com/installing-gdal-for-beginners/)
 
-Now, you must install the dependencies. To do so:
-> pip install -r requirements.txt 
+### Virtual Enviroment
 
-Note:
-- If you name your virtual environment something different than env, please add the path to our .gitignore file. 
-- Make sure you activate your local virtual environment every time you work on the project. 
-- if you introduce new dependencies to the project, make sure to add them to the requirements file, and inform the group so they can install the dependency. 
-          - to add dependencies to the requirement file, run the following command:
-            > pip freeze > requirements.txt
+#### Create a Python Virtual Environment
+```	
+python -m venv env 
+```
+
+#### Activate the Python Virtual Environment
+
+##### For Windows
+```
+.\env\Scripts\activate
+```
+
+##### For MacOS
+```
+source env/Scripts/activate
+```
+
+##### For Linux
+```
+source env/Scripts/activate
+```
+
+#### Install Local Dependencies for Virtual Enviroment
+```
+pip install -r requirements.txt
+```
+
+### Executing Program
+
+*Make sure your local virtual environment is activated*
+- Run GeoAlign
+```
+python3 src/main.py
+```
+
+- Run Unit Test
+```
+python3 -m unittest discover -s unit -p '*_test.py'
+```
+
+## 4. Note
+- In `src/main.py` make sure to set train image variable `train_image_path` to relative or absolute path in local directory. 
+    -  By default it is set to `'../base.tif'`
+
+- Make sure you activate your local virtual environment every time you work on the project.
+
+- If you name your virtual environment something different than env, please add the path to our .gitignore file.
+
+- If you introduce new dependencies to the project, make sure to add them to the requirements file. 
+    - To add dependencies to the requirement file, run the following command:
+```            
+pip freeze > requirements.txt
+```

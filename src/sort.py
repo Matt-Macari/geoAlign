@@ -2,7 +2,6 @@
 # Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
 #             for California Polytechnic State University, Humboldt               #
 ###################################################################################
-import orb as orb
 from shapely.geometry import Point, Polygon
 import matplotlib.pyplot as plt
 from  matplotlib.patches import Polygon as MplPolygon
