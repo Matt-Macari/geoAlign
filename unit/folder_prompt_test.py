@@ -1,3 +1,7 @@
+###################################################################################
+# Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
+#             for California Polytechnic State University, Humboldt               #
+###################################################################################
 import unittest
 from unittest.mock import patch
 import os
