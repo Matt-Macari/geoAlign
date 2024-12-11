@@ -1,3 +1,7 @@
+###################################################################################
+# Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
+#             for California Polytechnic State University, Humboldt               #
+###################################################################################
 import orb as orb
 import sort as sort
 import trim as trim
@@ -15,7 +19,7 @@ import sys
 
 def main():
 
-    train_image_path = '../test_img/train_oldtown_base.tif'
+    train_image_path = 'data/demo_base.tif'
 
     # Prompt user to select an input folder
     input_dir, num_tiff_files = folder_prompt.select_input_folder()

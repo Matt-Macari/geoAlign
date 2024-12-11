@@ -1,3 +1,7 @@
+###################################################################################
+# Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
+#             for California Polytechnic State University, Humboldt               #
+###################################################################################
 from tkinter.filedialog import askdirectory
 import tkinter as tk
 import os

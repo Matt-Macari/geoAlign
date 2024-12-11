@@ -1,6 +1,12 @@
+###################################################################################
+# Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
+#             for California Polytechnic State University, Humboldt               #
+###################################################################################
 from osgeo import gdal, osr
 from shapely.geometry import Point
-
+import random
+import os
+import csv
 
 # Suppress all GDAL warnings
 gdal.PushErrorHandler('CPLQuietErrorHandler')
@@ -98,7 +104,6 @@ def georeference(keypoints, train_image_path, query_image_path, output_image_pat
         gcp = gdal.GCP(train_geo_x, train_geo_y, 0, query_x, query_y)
         gcps.append(gcp)
 
-
     # Define the spatial reference we want to use:
     # Create a SpatialReference object
     # From gdal.org: This class represents an OpenGIS Spatial Reference System, 
@@ -132,12 +137,52 @@ def georeference(keypoints, train_image_path, query_image_path, output_image_pat
     #       - In GDAL's python bindings, passing the char is not necessary (no need to dynamically allocate mem in python :))
     wkt_projection = srs.ExportToWkt()
 
+    # shuffle list to randomize order of GCPs
+    random.shuffle(gcps)
+
     # Add the GCPs to the query image
     # From gdal.org: 
     #       SetGCPs (int nGCPCount, const GDAL_GCP *pasGCPList, const OGRSpatialReference *poGCP_SRS) - Assign GCPs.
     # Note: 
     #       - In GDAL's python bindings, passing nGCPCount is not necessary (again, no need to dynamically allocate mem in python)
     out_ds.SetGCPs(gcps, wkt_projection)
+
+    '''
+    csv_out_path = f'{os.path.dirname(output_image_path)}/{os.path.splitext(os.path.basename(query_image_path))[0]}_GCPs.csv'
+    with open(csv_out_path, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        # Write the header
+        writer.writerow(["Latitude", "Longitude"])
+        
+        # Write each GCP's coordinates
+        for i, gcp in enumerate(gcps):
+            writer.writerow([gcp.GCPY, gcp.GCPX])
+    '''
+   
+    # Define the CSV file name
+    csv_out_path = f'{os.path.dirname(output_image_path)}/{os.path.splitext(os.path.basename(query_image_path))[0]}_GCPs.csv'
+
+
+    source_srs = osr.SpatialReference()
+    source_srs.ImportFromEPSG(26910)  # EPSG code for NAD83 / UTM zone 10N
+
+    target_srs = osr.SpatialReference()
+    target_srs.ImportFromEPSG(4326)  # EPSG code for WGS84
+
+    transform = osr.CoordinateTransformation(source_srs, target_srs)
+
+    # Write the geographic coordinates to the CSV file
+    with open(csv_out_path, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        # Write the header
+        writer.writerow(["Latitude", "Longitude"])
+        
+        for i, gcp in enumerate(gcps):
+            # Transform coordinates to geographic system
+            lon, lat, _ = transform.TransformPoint(gcp.GCPX, gcp.GCPY)
+            writer.writerow([lon, lat])
+
+
 
     # Close the datasets (this "commits" the changes, embedding the GCPs into the image metadata)
     # train_ds = None
