@@ -11,6 +11,7 @@ import numpy as np
 from folder_prompt import select_input_folder, select_output_folder
 from path_prompt import get_input_path, get_output_path
 from georef import georeference
+from output_statistics import print_output_statistics
 import os
 import sys
 
@@ -83,16 +84,7 @@ def main():
             num_files_processed += 1
 
             print(f'\rProcessing file {num_files_processed} out of {num_tiff_files}', end='', flush=True)
-    print('\n\n-----------------------')
-    print('\nFiles have been processed...')
-    print(f'\nNumber of files successfully georeferenced: {num_files_processed - num_files_failed}')
-    print(f'\nNumber of failed files: {num_files_failed}')
-    if failed_files:
-        print('\nFiles that failed during processing:\n')
-        for each in failed_files:
-            print(f'{each}\n')
-    print('------------------------------------------------------------------------')
-    print(f'Check {output_dir} for the results.')
+    print_output_statistics(num_files_processed, num_files_failed, failed_files, output_dir)
 
 """
     # ------------------------------------------------------------------------------------------ 
