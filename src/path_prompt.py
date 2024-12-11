@@ -1,6 +1,6 @@
 ###################################################################################
 # Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
-#             for California Polytechnic State University, Humboldt               #
+#             for California State Polytechnic University, Humboldt               #
 ###################################################################################
 import os
 

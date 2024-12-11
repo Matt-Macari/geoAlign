@@ -1,7 +1,7 @@
 # GeoAlign
 Aerial Photograph Georeferencing Software   
 
-*Made for California Polytechnic State University, Humboldt*
+*Made for California State Polytechnic University, Humboldt*
 
 ## Table of Contents
 1. [Description](#description)
@@ -30,7 +30,6 @@ GeoAligns Purpose is to speed up the time-consuming process of georeferencing hi
 - [Matt Macari](https://github.com/Matt-Macari)  
 - [Lily Yassemi](https://github.com/lilyyassemi)  
 - [Dylan Lucas](https://github.com/Dylanlucas01)
-
 
 ## 3. Getting Started
 

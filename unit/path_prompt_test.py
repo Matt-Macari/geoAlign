@@ -1,6 +1,6 @@
 ###################################################################################
 # Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
-#             for California Polytechnic State University, Humboldt               #
+#             for California State Polytechnic University, Humboldt               #
 ###################################################################################
 import os
 import unittest
@@ -10,8 +10,7 @@ from src.path_prompt import get_input_path, get_output_path
 class TestPathPrompt(unittest.TestCase):
 
     @patch('src.path_prompt.input')
-    @patch('src.path_prompt.os')
-    def test_get_input_path_exit(self, mock_os, mock_input):
+    def test_get_input_path_exit(self, mock_input):
         mock_input.side_effect = ['exit']
         result = get_input_path()
         self.assertEqual(result, ("exit", 0))
@@ -55,8 +54,7 @@ class TestPathPrompt(unittest.TestCase):
         os.rmdir(test_dir)
 
     @patch('src.path_prompt.input')
-    @patch('src.path_prompt.os')
-    def test_get_output_path_exit(self, mock_os, mock_input):
+    def test_get_output_path_exit(self, mock_input):
         mock_input.side_effect = ['exit']
         result = get_output_path()
         self.assertEqual(result, "exit")
