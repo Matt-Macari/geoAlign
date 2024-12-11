@@ -1,3 +1,7 @@
+###################################################################################
+# Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
+#             for California Polytechnic State University, Humboldt               #
+###################################################################################
 
 # Expects a list of sections, each with keypoints
 # Returns a list of sections, each with keypoints, with an 18 keypoint sum between the lists 
