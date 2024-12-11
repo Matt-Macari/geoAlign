@@ -1,3 +1,7 @@
+###################################################################################
+# Developed by Matthew Marcotullio, Matt Macari, Lily Yassemi, and Dylan Lucas    #
+#             for California Polytechnic State University, Humboldt               #
+###################################################################################
 import unittest
 from unittest.mock import patch
 import os
@@ -10,7 +14,7 @@ class TestFolderPrompt(unittest.TestCase):
     @patch('os.path.getsize')
     def test_select_input_folder_with_tiff_files(self, mock_getsize, mock_listdir, mock_askdirectory):
         # Set up a temporary directory for testing
-        test_dir = 'unit/test_img'
+        test_dir = 'unit/valid_folder'
 
         # Ensure the directory exists (create if not)
         if not os.path.exists(test_dir):

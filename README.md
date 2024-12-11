@@ -63,12 +63,12 @@ python -m venv env
 
 ##### For MacOS
 ```
-source env/Scripts/activate
+source env/bin/activate
 ```
 
 ##### For Linux
 ```
-source env/Scripts/activate
+source env/bin/activate
 ```
 
 #### Install Local Dependencies for Virtual Enviroment
